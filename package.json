@@ -1,0 +1,54 @@
+{
+  "name": "orbital-pay-sdk",
+  "version": "0.1.1",
+  "description": "Orbital Pay Payment Solution - A simple and elegant way to integrate Orbital Pay payment functionality into your applications",
+  "scripts": {
+    "rollup": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "payment",
+    "sdk",
+    "orbital",
+    "orbitalpay",
+    "payment-gateway",
+    "react"
+  ],
+  "author": "akki",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KryptoNights/orbitalpay-sdk"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.0",
+    "@types/react": "^18.3.11",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "rollup": "^4.24.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "react-qr-code": "^2.0.15",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.7.0",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "rollup-plugin-postcss": "^4.0.2"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  }
+}
