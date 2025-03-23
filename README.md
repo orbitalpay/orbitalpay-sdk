@@ -12,7 +12,6 @@ yarn add orbital-pay-sdk
 
 ## Usage
 
-The integration requires the use of the `"use client"` directive since it uses browser-specific features. Here's a basic implementation:
 
 ```tsx
 "use client"

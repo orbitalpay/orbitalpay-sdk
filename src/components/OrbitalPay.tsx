@@ -101,7 +101,7 @@ function OrbitalPay({
       try {
         await fetchCheckoutSessionFnc();
         // Set QR string based on the checkout data
-        const baseUrl = `https://app.orbitalpay.xyz/dashboard/?type=merchant&txid=${transaction_id}`;
+        const baseUrl = `https://app.orbitalpay.xyz/?type=merchant&txid=${transaction_id}`;
         setQrString(baseUrl);
       } catch (error) {
         console.error('Error fetching checkout session:', error);
