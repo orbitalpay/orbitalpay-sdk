@@ -12,6 +12,9 @@ yarn add orbital-pay-sdk
 
 ## Usage
 
+<img width="258" alt="image" src="https://github.com/user-attachments/assets/e4a65e27-db19-49a7-9818-31d36692415d" />
+
+
 
 ```tsx
 "use client"
