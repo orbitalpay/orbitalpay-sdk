@@ -131,6 +131,9 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
               import.meta.env.VITE_ORBITAL_PUBLIC_KEY || ""
             }
             open={open}
+            setStatus={(status: string) => {
+              console.log(status);
+            }}
             onClose={handleClose}
           />
         )}
