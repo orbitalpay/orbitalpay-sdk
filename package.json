@@ -1,6 +1,6 @@
 {
   "name": "orbital-pay-sdk",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Orbital Pay Payment Solution - A simple and elegant way to integrate Orbital Pay payment functionality into your applications",
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
@@ -48,7 +48,7 @@
     "README.md"
   ],
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }

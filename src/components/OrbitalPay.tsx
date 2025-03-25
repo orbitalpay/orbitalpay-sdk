@@ -8,6 +8,7 @@ export interface OrbitalPayProps {
   orbital_public_key: string;
   // UI control
   open: boolean;
+  setStatus: (status: string) => void;
   onClose: () => void;
 
 
@@ -57,6 +58,7 @@ function OrbitalPay({
   transaction_id,
   orbital_public_key,
   open,
+  setStatus,
   onClose,
 }: OrbitalPayProps) {
   const [showQR, setShowQR] = useState(true);
@@ -125,20 +127,24 @@ function OrbitalPay({
         console.log('data', data);
         if (data.status === 'expired' || (data.expiration_timestamp && data.expiration_timestamp < currentTimestamp)) {
           setPaymentStatus(PaymentStatus.EXPIRED);
+          setStatus(PaymentStatus.EXPIRED);
           setIsPolling(false);
         } else if (data.status === 'paid') {
           setPaymentStatus(PaymentStatus.PAID);
           setIsPolling(false);
         } else if (data.status === 'declined') {
           setPaymentStatus(PaymentStatus.DECLINED);
+          setStatus(PaymentStatus.DECLINED);
           setIsPolling(false);
         } else {
           setPaymentStatus(PaymentStatus.PENDING);   
+          setStatus(PaymentStatus.PENDING);
         }
         setCheckoutSession(data);
       } catch (error) {
         console.error('Error polling checkout session:', error);
         setPaymentStatus(PaymentStatus.ERROR);
+        setStatus(PaymentStatus.ERROR);
         setIsPolling(false);
       }
     };
