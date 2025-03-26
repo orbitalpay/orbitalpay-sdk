@@ -469,6 +469,7 @@ input, textarea {
 /* Transaction History */
 .transaction-history h1 {
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .transaction-filters {
@@ -579,4 +580,45 @@ input, textarea {
   text-align: center;
   color: var(--text-light);
   font-size: 0.875rem;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  min-width: 80px;
+}
+
+.status-paid {
+  background-color: #d4f7dc;
+  color: #0a7b30;
+}
+
+.status-cancelled {
+  background-color: #ffe5e5;
+  color: #cf0000;
+}
+
+.status-pending {
+  background-color: #fff8e5;
+  color: #b86e00;
+}
+
+.txhash-link {
+  color: #3366cc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.txhash-link:hover {
+  color: #1a4399;
+  text-decoration: underline;
+}
+
+.pending-txhash {
+  color: #999;
+  font-style: italic;
 }

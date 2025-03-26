@@ -60,6 +60,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // In a real app, we would process payment here
+    
     console.log(import.meta.env.VITE_ORBITAL_PRIVATE_KEY);
     const response = await fetch('https://py.api.orbitalpay.xyz/merchants/create-checkout', {
       method: 'POST',
@@ -68,7 +69,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
         'x-api-key': import.meta.env.VITE_ORBITAL_PRIVATE_KEY || '' // Replace with your actual API key
       },
       body: JSON.stringify({
-        amount: Number(total*1e6),
+        amount: Math.round(total*1e6),
         details: 'Merchant Example',
         token: 'USDC'
       })
