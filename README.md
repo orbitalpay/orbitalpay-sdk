@@ -23,6 +23,7 @@ import OrbitalPay from 'orbital-pay-sdk';
 
 export default function PaymentPage() {
   const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState<string | null>(null);
   
   const handleClose = () => {
     setOpen(false);
@@ -43,6 +44,7 @@ export default function PaymentPage() {
           transaction_id="your_transaction_id"
           orbital_public_key={process.env.NEXT_PUBLIC_ORBITAL_PUBLIC_KEY}
           open={open}
+          setStatus={setStatus}
           onClose={handleClose}
         />
       )}
@@ -59,6 +61,7 @@ export default function PaymentPage() {
 | `orbital_public_key` | string | Yes | Your Orbital Pay public API key |
 | `open` | boolean | Yes | Controls the visibility of the payment modal |
 | `onClose` | function | Yes | Callback function when the modal is closed |
+| `setStatus` | function  | Yes | function to get your payment status back |
 
 ## Environment Variables
 
