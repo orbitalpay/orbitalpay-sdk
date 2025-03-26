@@ -42,7 +42,10 @@ const TransactionHistory: React.FC = () => {
   };
   
   useEffect(() => {
-    fetchCheckouts();
+    if (transactions.length === 0) {
+      fetchCheckouts();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Format transaction ID to show first 2 and last 6 characters
@@ -82,7 +85,8 @@ const TransactionHistory: React.FC = () => {
     return '';
   };
 
-  console.log(transactions);
+  // Sort transactions in reverse chronological order (newest first)
+  const sortedTransactions = [...transactions].sort((a, b) => b.timestamp - a.timestamp);
   
   return (
     <div className="transaction-history">      
@@ -97,7 +101,7 @@ const TransactionHistory: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          { transactions && transactions.map(txn => (
+          { sortedTransactions && sortedTransactions.map(txn => (
             <tr key={txn.transaction_id} className={`transaction-row ${txn.status.toLowerCase()}`}>
               <td>{formatTransactionId(txn.transaction_id)}</td>
               <td>{formatDate(txn.timestamp)}</td>
