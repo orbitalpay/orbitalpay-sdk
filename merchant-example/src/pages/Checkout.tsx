@@ -35,6 +35,7 @@ interface CheckoutSession {
 const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState<CheckoutSession | null>(null);
+  const [status, setStatus] = React.useState<string | null>(null);
   const handleClose = () => {
     setOpen(false);
   };
@@ -54,14 +55,13 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
   }, 0);
 
   const tax = subtotal * 0.08; // 8% tax
-  const shipping = 0.2; // Flat shipping fee
+  const shipping = 40000; // Flat shipping fee
   const total = subtotal + tax + shipping;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real app, we would process payment here
-    
-    console.log(import.meta.env.VITE_ORBITAL_PRIVATE_KEY);
+    // if data is not null, then we need to update the data
+    if(!data ){
     const response = await fetch('https://py.api.orbitalpay.xyz/merchants/create-checkout', {
       method: 'POST',
       headers: {
@@ -69,7 +69,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
         'x-api-key': import.meta.env.VITE_ORBITAL_PRIVATE_KEY || '' // Replace with your actual API key
       },
       body: JSON.stringify({
-        amount: Math.round(total*1e6),
+        amount: Number(total),
         details: 'Merchant Example',
         token: 'USDC'
       })
@@ -81,8 +81,39 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
     }
     const data = await response.json();
     setData(data);
+   }
     console.log('Checkout created:', data);
     setOpen(true);
+  };
+
+  const getStatusMessage = (status: string | null) => {
+    switch (status) {
+      case 'paid':
+        return {
+          message: 'Payment completed successfully!',
+          className: 'status-paid'
+        };
+      case 'pending':
+        return {
+          message: 'Payment is pending...',
+          className: 'status-pending'
+        };
+      case 'expired':
+        return {
+          message: 'Payment session expired',
+          className: 'status-expired'
+        };
+      case 'cancelled':
+        return {
+          message: 'Payment was cancelled',
+          className: 'status-cancelled'
+        };
+      default:
+        return {
+          message: '',
+          className: ''
+        };
+    }
   };
 
   return (
@@ -94,36 +125,43 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
             {items.map(item => (
               <div key={item.id} className="order-item">
                 <span>{item.name} x {item.quantity}</span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                <span>${Number((item.price * item.quantity)/1e6).toFixed(3)}</span>
               </div>
             ))}
           </div>
           <div className="order-totals">
             <div className="subtotal">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>${Number(subtotal/1e6).toFixed(3)}</span>
             </div>
             <div className="tax">
               <span>Tax (8%)</span>
-              <span>${tax.toFixed(2)}</span>
+              <span>${Number(tax/1e6).toFixed(3)}</span>
             </div>
             <div className="shipping">
               <span>Shipping</span>
-              <span>${shipping.toFixed(2)}</span>
+              <span>${Number(shipping/1e6).toFixed(3)}</span>
             </div>
             <div className="total">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>${Number(total/1e6).toFixed(3)}</span>
             </div>
           </div>
         </div>
-        
+
         <div className="payment-details">
           <form onSubmit={handleSubmit}>
             <button type="submit" className="place-order-btn orbital-pay-btn">
               Pay With Orbital Pay
             </button>
           </form>
+          {status && (
+          <div className={`status-container ${getStatusMessage(status).className}`}>
+            <span className="status-message">
+              {getStatusMessage(status).message}
+            </span>
+          </div>
+        )}
         </div>
         {open && (
           <OrbitalPay
@@ -132,9 +170,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
               import.meta.env.VITE_ORBITAL_PUBLIC_KEY || ""
             }
             open={open}
-            setStatus={(status: string) => {
-              console.log(status);
-            }}
+            setStatus={setStatus}
             onClose={handleClose}
           />
         )}

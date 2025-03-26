@@ -622,3 +622,47 @@ input, textarea {
   color: #999;
   font-style: italic;
 }
+
+.status-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid;
+}
+
+.status-container.paid {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.status-container.pending {
+  background-color: #fefce8;
+  border-color: #fef08a;
+}
+
+.status-container.expired {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.status-container.cancelled {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.status-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

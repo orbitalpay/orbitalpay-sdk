@@ -49,7 +49,7 @@ enum PaymentStatus {
 const STATUS_MESSAGES = {
   [PaymentStatus.PENDING]: "Waiting for payment confirmation...",
   [PaymentStatus.EXPIRED]: "This payment request has expired",
-  [PaymentStatus.PAID]: "Payment successfully Received ✓",
+  [PaymentStatus.PAID]: "Payment Received Redirecting to checkout...",
   [PaymentStatus.DECLINED]: "Payment declined",
   [PaymentStatus.ERROR]: "Unable to process payment. Please try again"
 };
@@ -119,32 +119,51 @@ function OrbitalPay({
   
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
+    let closeTimeoutId: NodeJS.Timeout;
 
     const pollCheckoutSession = async () => {
       try {
         const data = await fetchCheckoutSessionFnc();
         const currentTimestamp = Date.now();
-        console.log('data', data);
+        
         if (data.status === 'expired' || (data.expiration_timestamp && data.expiration_timestamp < currentTimestamp)) {
           setPaymentStatus(PaymentStatus.EXPIRED);
-          setStatus(PaymentStatus.EXPIRED);
+          setStatus('cancelled');
           setIsPolling(false);
-        } else if (data.status === 'paid') {
+        } else if (data.status === 'paid') { 
           setPaymentStatus(PaymentStatus.PAID);
+          setStatus('paid'); 
+                 
+          // Clear any existing timeout
+          if (closeTimeoutId) {
+            clearTimeout(closeTimeoutId);
+          }
+          
+          // Set new timeout and store the ID
+          closeTimeoutId = setTimeout(() => {
+            if (data.callback_url) {
+              window.location.href = data.callback_url;
+            }
+            onClose();
+          }, 5000);
           setIsPolling(false);
+   
         } else if (data.status === 'declined') {
           setPaymentStatus(PaymentStatus.DECLINED);
-          setStatus(PaymentStatus.DECLINED);
+          setStatus('declined'); 
           setIsPolling(false);
-        } else {
+        } else if (data.status === 'pending') {
           setPaymentStatus(PaymentStatus.PENDING);   
-          setStatus(PaymentStatus.PENDING);
+          setStatus('pending');
+        } else {
+          setPaymentStatus(PaymentStatus.PENDING);
+          setStatus('pending');
         }
         setCheckoutSession(data);
       } catch (error) {
         console.error('Error polling checkout session:', error);
         setPaymentStatus(PaymentStatus.ERROR);
-        setStatus(PaymentStatus.ERROR);
+        setStatus('error');
         setIsPolling(false);
       }
     };
@@ -154,12 +173,16 @@ function OrbitalPay({
       intervalId = setInterval(pollCheckoutSession, 3000);
     }
 
+    // Cleanup function
     return () => {
       if (intervalId) {
         clearInterval(intervalId);
       }
+      if (closeTimeoutId) {
+        clearTimeout(closeTimeoutId);
+      }
     };
-  }, [isPolling]);
+  }, [isPolling, setStatus, onClose, transaction_id]);
 
 
   const handleEmailSubmit = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
@@ -254,6 +277,7 @@ function OrbitalPay({
    
       <div className={`orbital-status-message ${paymentStatus !== PaymentStatus.PENDING ? 'orbital-status-message-' + paymentStatus.toLowerCase() : ''}`}>
         {STATUS_MESSAGES[paymentStatus]}
+
       </div>
 
 

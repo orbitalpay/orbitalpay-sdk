@@ -54,8 +54,8 @@ const Cart: React.FC<CartProps> = ({ items, onCheckout, onRemoveItem }) => {
             <img src={item.image} alt={item.name} className="cart-item-image" />
             <div className="cart-item-details">
               <h4>{item.name}</h4>
-              <p>${item.price.toFixed(2)} x {item.quantity}</p>
-              <p className="item-total">${(item.price * item.quantity).toFixed(2)}</p>
+              <p>${Number(item.price/1e6).toFixed(3)} x {item.quantity}</p>
+              <p className="item-total">${Number((item.price * item.quantity)/1e6).toFixed(3)}</p>
             </div>
             <button 
               onClick={() => onRemoveItem(item.id)} 
@@ -67,7 +67,7 @@ const Cart: React.FC<CartProps> = ({ items, onCheckout, onRemoveItem }) => {
         ))}
       </div>
       <div className="cart-summary">
-        <p className="cart-total">Total: ${totalAmount.toFixed(2)}</p>
+        <p className="cart-total">Total: ${Number(totalAmount/1e6).toFixed(3)}</p>
         <button onClick={onCheckout} className="checkout-btn">
           Proceed to Checkout
         </button>
