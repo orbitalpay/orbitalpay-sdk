@@ -1,6 +1,6 @@
 {
   "name": "orbital-pay-sdk",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Orbital Pay Payment Solution - A simple and elegant way to integrate Orbital Pay payment functionality into your applications",
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
