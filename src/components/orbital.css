@@ -44,7 +44,7 @@
   padding: 4px;
   border-radius: 6px;
   background: #e5e5e5;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .orbital-button {
@@ -71,9 +71,8 @@
 }
 
 .orbital-qr-container {
-  background-color: #f6f6f6;
   border-radius: 5px;
-  padding: 20px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,7 +95,7 @@
 .orbital-order-details {
   background-color: #f6f6f6;
   border-radius: 5px;
-  padding: 15px;
+  padding: 6px;
   margin-bottom: 15px;
 }
 
@@ -141,7 +140,7 @@
   padding: 12px;
   border: 2px solid #afafaf;
   border-radius: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   color: #000;
   font-size: 16px;
   font-weight: 600;
@@ -178,7 +177,7 @@
   text-align: center;
   display: flex;
   color: #908b8b;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .orbital-message-success {

@@ -290,6 +290,71 @@ function OrbitalPay({
         </div>
       </div>
 
+            {/* Stylish Button for External Wallet Payment */}
+            <div style={{ margin: "-10px 0 0 0", textAlign: "center" }}>
+        <button
+          className="orbital-button orbital-button-primary orbital-external-wallet-btn"
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+            fontWeight: 600,
+            fontSize: "1rem",
+            padding: "6px 0"
+          }}
+          onClick={() => {
+            window.open(`https://pay.orbitalpay.xyz?txid=${transaction_id}`, "_blank");
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            fill="none"
+            viewBox="0 0 24 24"
+            style={{ marginRight: 6 }}
+          >
+            <path
+              d="M17 17.5A2.5 2.5 0 0 1 14.5 20h-7A2.5 2.5 0 0 1 5 17.5v-11A2.5 2.5 0 0 1 7.5 4h7A2.5 2.5 0 0 1 17 6.5"
+              stroke="#fff"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <rect
+              x="9"
+              y="7"
+              width="10"
+              height="10"
+              rx="2"
+              fill="#fff"
+              fillOpacity="0.2"
+              stroke="#fff"
+              strokeWidth="1.5"
+            />
+            <circle cx="14" cy="12" r="1.25" fill="#fff" />
+          </svg>
+          Pay through any external wallet
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            fill="none"
+            viewBox="0 0 24 24"
+            style={{ marginLeft: 6 }}
+          >
+            <path
+              d="M7 17L17 7M17 7H7M17 7V17"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
       <div className="orbital-footer-text">
         Closing this pop-up will terminate the payment process
       </div>
