@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@orbitalpay/sdk": "^0.0.1",
+    "@orbitalpay/sdk": "^0.1.13",
     "orbital-pay-sdk": "^0.1.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

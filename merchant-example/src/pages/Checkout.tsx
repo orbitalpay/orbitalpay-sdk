@@ -2,7 +2,7 @@
 import React from 'react';
 import { products } from '../components/ProductList';
 import type { CartItem } from '../components/Cart';
-import OrbitalPay from "orbital-pay-sdk";
+import OrbitalPay from "@orbitalpay/sdk";
 
 interface CheckoutProps {
   cartItems: CartItem[];
