@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@orbitalpay/sdk": "^0.1.13",
-    "orbital-pay-sdk": "^0.1.14",
+    "orbital-pay-sdk": "^0.1.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0"
