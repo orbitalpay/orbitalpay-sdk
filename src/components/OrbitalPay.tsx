@@ -197,7 +197,7 @@ function OrbitalPay({
         transaction_id: transaction_id,
       };
 
-      const response = await fetch('https://py.api.orbitalpay.xyz/merchants/request-checkout-from-user', {
+      const response = await fetch(`https://py.api.orbitalpay.xyz/merchants/request-checkout-from-user?public_key=${orbital_public_key}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
