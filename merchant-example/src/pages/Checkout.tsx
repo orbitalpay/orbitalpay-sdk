@@ -2,7 +2,7 @@
 import React from 'react';
 import { products } from '../components/ProductList';
 import type { CartItem } from '../components/Cart';
-import OrbitalPay from "@orbitalpay/sdk";
+import OrbitalPay from "orbital-pay-sdk";
 
 interface CheckoutProps {
   cartItems: CartItem[];
@@ -115,6 +115,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {;
         };
     }
   };
+
+  console.log(import.meta.env.VITE_ORBITAL_PUBLIC_KEY);
 
   return (
     <div className="checkout">
