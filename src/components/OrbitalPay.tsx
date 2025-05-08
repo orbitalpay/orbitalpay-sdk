@@ -73,7 +73,7 @@ function OrbitalPay({
 
   const fetchCheckoutSessionFnc = async () => {
     try {
-      const response = await fetch(`https://py.api.orbitalpay.xyz/merchants/fetch-checkout`, {
+      const response = await fetch(`https://py.api.orbitalpay.xyz/merchants/fetch-checkout?public_key=${orbital_public_key}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
